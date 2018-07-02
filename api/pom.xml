@@ -7,9 +7,33 @@
         <groupId>ru.innopolis</groupId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
 
+    <modelVersion>4.0.0</modelVersion>
     <artifactId>api</artifactId>
+    <packaging>jar</packaging>
+    <name>API</name>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.pf4j</groupId>
+            <artifactId>pf4j</artifactId>
+            <version>2.2.0</version>
+            <!-- !!! VERY IMPORTANT -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
 
 
 </project>

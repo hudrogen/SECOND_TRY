@@ -3,6 +3,7 @@ package ru.innopolis;
 import org.pf4j.*;
 import ru.innopolis.api.Greeting;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,14 +18,8 @@ public class Boot {
             System.out.println("Плагин айди= " + pluginWrapper.getPluginId());
         }
 
-        // print extensions from classpath (non plugin)
-        System.out.println("Extensions added by classpath:");
-        Set<String> extensionClassNames = pluginManager.getExtensionClassNames(null);
-        for (String extension : extensionClassNames) {
-            System.out.println("   " + extension);
-        }
-
-        System.out.println("Поиск расширений");
+        Set<String> extensionClassNames = new HashSet<String>();
+        System.out.println("Find Extensions...");
         // print extensions ids for each started plugin
         List<PluginWrapper> startedPlugins = pluginManager.getStartedPlugins();
         for (PluginWrapper plugin : startedPlugins) {
@@ -36,5 +31,11 @@ public class Boot {
             }
         }
 
+        System.out.println("Run extensions...");
+        List<Greeting> greetings = pluginManager.getExtensions(Greeting.class);
+        System.out.println(String.format("Found %d extensions for extension point '%s'", greetings.size(), Greeting.class.getName()));
+        for (Greeting greeting : greetings) {
+            System.out.println(">>> " + greeting.getGreeting());
+        }
     }
 }
